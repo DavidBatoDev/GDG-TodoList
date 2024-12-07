@@ -23,10 +23,12 @@ sortFilterSelect.addEventListener('change', (event) => {
 
 // State
 let upcomingTasks = [
-    { id: 1, name: 'JS Study Jam', dueDate: '2022-12-31', priority: 'high', completed: false },
-    { id: 3, name: 'Python Study Jam', dueDate: '2022-12-20', priority: 'low', completed: false },
+    { id: 1, name: 'JS Study Jam', dueDate: '2024-12-08', priority: 'high', completed: false },
+    { id: 3, name: 'Python Study Jam', dueDate: '2022-12-15', priority: 'low', completed: false },
 ];
-let completedTasks = localStorage.getItem('GDG_completedTasks') ? JSON.parse(localStorage.getItem('GDG_completedTasks')) : [];
+let completedTasks = [
+    { id: 2, name: 'HTML Study Jame', dueDate: '2024-11-24', priority: 'medium', completed: true },
+];
 let taskIdToEdit = null;
 let sortFilter = 'all';
 
