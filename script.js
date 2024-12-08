@@ -34,7 +34,7 @@ let upcomingTasks = [
   {
     id: 3,
     name: "Python Study Jam",
-    dueDate: "2022-12-15",
+    dueDate: "2024-12-15",
     priority: "low",
     completed: false,
   },
@@ -42,7 +42,7 @@ let upcomingTasks = [
 let completedTasks = [
   {
     id: 2,
-    name: "HTML Study Jame",
+    name: "HTML Study Jam",
     dueDate: "2024-11-24",
     priority: "medium",
     completed: true,
