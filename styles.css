@@ -222,7 +222,6 @@ section {
 /* eplisses text */
     text-wrap: ellipsis;
     color: gray;
-    background-color: blue;
 }
 .task-details {
     display: flex;
@@ -326,18 +325,18 @@ section {
         padding: 0.75rem;
     }
     .task-details {
-        max-width: 200px;
+        max-width: 100px;
     }
     .task-title {
         font-size: 1rem;
         text-wrap: wrap;
-        max-width: fit-content;
+        max-width: fit-content
     }
     .task-date {
         font-size: 1rem;
     }
     .task-actions {
-        gap: 1rem;
+        gap: 0.5rem;
     }
     .edit-btn, .delete-btn {
         font-size: 1.25rem;
@@ -409,7 +408,7 @@ section {
         font-size: 1.25rem;
     }
     .task-actions {
-        gap: 1.5rem;
+        gap: 1rem;
     }
     .edit-btn, .delete-btn {
         font-size: 1.75rem;

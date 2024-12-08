@@ -48,36 +48,38 @@ function openModal() {
     modalOverlay.classList.remove('hidden');
 }
 
+function renderAllTasks() {
+    upcomingSection.innerHTML = '';
+    completedSection.innerHTML = '';
 
-function handleAddTask(event) {
-    event.preventDefault();
+    if (sortFilter === 'priority') {
+        upcomingTasks.sort((a, b) => {
+            if (a.priority === 'high' && b.priority !== 'high') return -1;
+            if (a.priority === 'medium' && b.priority === 'low') return -1;
+            if (a.priority === 'low' && b.priority !== 'low') return 1;
+            return 0;
+        });
+    } else if (sortFilter === 'date') {
+        upcomingTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+    } 
+    
+    upcomingTasks.forEach(task => renderTask(task, upcomingSection));
+    completedTasks.forEach(task => renderTask(task, completedSection));
+    
+    // example of tradional for loop
+    // for (let i = 0; i < upcomingTasks.length; i++) {
+    //     const task = upcomingTasks[i];
+    //     renderTask(task, upcomingSection);
+    // }
 
-    const taskName = taskInput.value.trim();
-    const dueDate = dateInput.value;
-    const priority = prioritySelect.value;
+    // for (let i = 0; i < completedTasks.length; i++) {
+    //     const task = completedTasks[i];
+    //     renderTask(task, completedSection);
+    // }
 
-    if (!taskName || !dueDate) {
-        alert('Please fill out all fields.');
-        return;
-    }
-
-    if (taskIdToEdit !== null) {
-        updateTask(taskIdToEdit, taskName, dueDate, priority);
-        taskIdToEdit = null;
-    } else {
-        addTask(taskName, dueDate, priority);
-    }
-
-    resetInputs();
-}
-
-function addTask(name, dueDate, priority) {
-    const taskId = Date.now();
-    const task = { id: taskId, name, dueDate, priority, completed: false };
-    upcomingTasks.push(task);
-
-    renderTask(task, upcomingSection);
-    closeModal();
+    // save to local storage
+    // localStorage.setItem('GDG_upcomingTasks', JSON.stringify(upcomingTasks));
+    // localStorage.setItem('GDG_completedTasks', JSON.stringify(completedTasks));
 }
 
 function renderTask(task, section) {
@@ -123,6 +125,37 @@ function renderTask(task, section) {
     taskCard.querySelector('.edit-btn').addEventListener('click', () => editTask(id));
     taskCard.querySelector('.delete-btn').addEventListener('click', () => deleteTask(id));
     taskCard.querySelector('input[type="checkbox"]').addEventListener('change', () => toggleComplete(id));
+}
+
+function handleAddTask(event) {
+    event.preventDefault();
+
+    const taskName = taskInput.value.trim();
+    const dueDate = dateInput.value;
+    const priority = prioritySelect.value;
+
+    if (!taskName || !dueDate) {
+        alert('Please fill out all fields.');
+        return;
+    }
+
+    if (taskIdToEdit !== null) {
+        updateTask(taskIdToEdit, taskName, dueDate, priority);
+        taskIdToEdit = null;
+    } else {
+        addTask(taskName, dueDate, priority);
+    }
+
+    resetInputs();
+}
+
+function addTask(name, dueDate, priority) {
+    const taskId = Date.now();
+    const task = { id: taskId, name, dueDate, priority, completed: false };
+    upcomingTasks.push(task);
+
+    renderTask(task, upcomingSection);
+    closeModal();
 }
 
 function resetInputs() {
@@ -182,40 +215,6 @@ function toggleComplete(taskId) {
     }
 
     renderAllTasks();
-}
-
-function renderAllTasks() {
-    upcomingSection.innerHTML = '';
-    completedSection.innerHTML = '';
-
-    if (sortFilter === 'priority') {
-        upcomingTasks.sort((a, b) => {
-            if (a.priority === 'high' && b.priority !== 'high') return -1;
-            if (a.priority === 'medium' && b.priority === 'low') return -1;
-            if (a.priority === 'low' && b.priority !== 'low') return 1;
-            return 0;
-        });
-    } else if (sortFilter === 'date') {
-        upcomingTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
-    } 
-    
-    upcomingTasks.forEach(task => renderTask(task, upcomingSection));
-    completedTasks.forEach(task => renderTask(task, completedSection));
-    
-    // example of tradional for loop
-    // for (let i = 0; i < upcomingTasks.length; i++) {
-    //     const task = upcomingTasks[i];
-    //     renderTask(task, upcomingSection);
-    // }
-
-    // for (let i = 0; i < completedTasks.length; i++) {
-    //     const task = completedTasks[i];
-    //     renderTask(task, completedSection);
-    // }
-
-    // save to local storage
-    // localStorage.setItem('GDG_upcomingTasks', JSON.stringify(upcomingTasks));
-    // localStorage.setItem('GDG_completedTasks', JSON.stringify(completedTasks));
 }
 
 renderAllTasks();
